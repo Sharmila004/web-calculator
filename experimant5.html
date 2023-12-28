@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2? family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Scietific calculator</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Poppins", sans-serif;
+        background-color: #ffc600;
+      }
+
+      .main {
+        background-color: #000;
+        padding: 50px;
+        color: #fff;
+        border-radius: 5px;
+      }
+
+      .calc {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      input,
+      button {
+        font-family: inherit;
+      }
+
+      #textinput {
+        padding: 8px;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+
+      button {
+        height: 50px;
+        width: 50px;
+        font-size: 1.2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main">
+      <h1>Scientific Calculator</h1>
+      <div class="calc">
+        <form name="form">
+          <input id="textinput" name="textinput" />
+        </form>
+
+        <table>
+          <tr>
+            <td><button onclick="clean()">C</button></td>
+            <td><button onclick="back()">DEL</button></td>
+            <td><button onclick="insert('+')">+</button></td>
+            <td><button onclick="insert('-')">-</button></td>
+            <td><button onclick="calcTrignometry('sin')">sin</button></td>
+            <td><button onclick="insert('**')">^</button></td>
+          </tr>
+          <tr>
+            <td><button onclick="insert(1)">1</button></td>
+            <td><button onclick="insert(2)">2</button></td>
+            <td><button onclick="insert(3)">3</button></td>
+            <td><button onclick="insert('')"></button></td>
+            <td><button onclick="calcTrignometry('cos')">cos</button></td>
+            <td><button onclick="calcExp()">exp</button></td>
+          </tr>
+          <tr>
+            <td><button onclick="insert(4)">4</button></td>
+            <td><button onclick="insert(5)">5</button></td>
+            <td><button onclick="insert(6)">6</button></td>
+            <td><button onclick="insert('/')">/</button></td>
+            <td><button onclick="calcTrignometry('tan')">tan</button></td>
+            <td><button onclick="calcLog()">ln</button></td>
+          </tr>
+          <tr>
+            <td><button onclick="insert(7)">7</button></td>
+            <td><button onclick="insert(8)">8</button></td>
+            <td><button onclick="insert(9)">9</button></td>
+            <td><button onclick="calcSqrt()">sqrt</button></td>
+            <td><button onclick="insert('(')">(</button></td>
+            <td rowspan="2">
+              <button style="height: 100px" onclick="calculate()">=</button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button style="width: 100px" onclick="insert(0)">0</button>
+            </td>
+            <td><button onclick="insert('.')">.</button></td>
+            <td><button onclick="calcPercent()">%</button></td>
+            <td><button onclick="insert(')')">)</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      var textInput = document.getElementById("textinput");
+
+      function insert(num) {
+        var text = textInput.value;
+        textInput.value = text + num;
+      }
+
+      function clean() {
+        textInput.value = "";
+      }
+
+      function calculate() {
+        var input = textInput.value;
+        try {
+          textInput.value = eval(input);
+        } catch (e) {
+          alert(
+            "There was an error while calculating, please check your expression"
+          );
+        }
+      }
+
+      function back() {
+        var input = textInput.value;
+        textInput.value = input.substring(0, input.length - 1);
+      }
+
+      function calcTrignometry(func) {
+        var input = textInput.value;
+        var value;
+        switch (func) {
+          case "sin":
+            value = Math.sin(input);
+            break;
+          case "tan":
+            value = Math.tan(input);
+            break;
+          case "cos":
+            value = Math.cos(input);
+            break;
+        }
+        textInput.value = value;
+      }
+
+      function calcSqrt() {
+        var input = textInput.value;
+        textInput.value = Math.sqrt(input);
+      }
+
+      function calcPercent() {
+        var input = textInput.value;
+        textInput.value = input / 100;
+      }
+
+      function calcLog() {
+        var input = textInput.value;
+        textInput.value = Math.log(input);
+      }
+
+      function calcExp() {
+        var input = textInput.value;
+        textInput.value = Math.exp(input);
+      }
+    </script>
+  </body>
+</html>
